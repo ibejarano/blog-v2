@@ -1,5 +1,5 @@
 ---
-title: "Dia 1"
+title: "Dia 1: Tutoriales básicos"
 date: "2020-01-01"
 section: "100DaysOfGatsby"
 ---

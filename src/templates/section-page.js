@@ -1,7 +1,7 @@
 import React from "react"
 import { css } from "@emotion/core"
 import Layout from "../components/layout"
-import { graphql } from "gatsby"
+import { graphql, useStaticQuery } from "gatsby"
 import PostCard from "../components/post-card.js"
 import Sections from "../components/sections"
 export default ({ data }) => (
@@ -25,8 +25,10 @@ export default ({ data }) => (
 )
 
 export const query = graphql`
-  query {
-    allMarkdownRemark(sort: { fields: frontmatter___date, order: DESC }) {
+  query($sectionName: String!) {
+    allMarkdownRemark(sort: { fields: frontmatter___date, order: DESC },
+    filter: {fields: {section: {eq: $sectionName}}}
+    ) {
       totalCount
       edges {
         node {

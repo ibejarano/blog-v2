@@ -1,5 +1,5 @@
 ---
-title: "Dia 2"
+title: "Dia 2: Challenge #1 (Blog)"
 date: "2020-01-02"
 section: "100DaysOfGatsby"
 ---

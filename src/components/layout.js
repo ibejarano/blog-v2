@@ -17,24 +17,7 @@ export default ({ children }) => {
     `
   )
   return (
-    <div
-      css={css`
-        background: #1fa2ff; /* fallback for old browsers */
-        background: -webkit-linear-gradient(
-          to right,
-          #a6ffcb,
-          #12d8fa,
-          #1fa2ff
-        ); /* Chrome 10-25, Safari 5.1-6 */
-        background: linear-gradient(
-          to right,
-          #a6ffcb,
-          #12d8fa,
-          #1fa2ff
-        ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-        height: 100%;
-      `}
-    >
+    <div>
       <div
         css={css`
           margin: 0 auto;

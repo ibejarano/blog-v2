@@ -1,7 +1,7 @@
 import React from "react"
 import { css } from "@emotion/core"
 import Layout from "../components/layout"
-import { graphql, useStaticQuery } from "gatsby"
+import { graphql } from "gatsby"
 import PostCard from "../components/post-card.js"
 import Sections from "../components/sections"
 export default ({ data }) => (

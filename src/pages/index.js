@@ -1,7 +1,7 @@
 import React from "react"
 import { css } from "@emotion/core"
 import Layout from "../components/layout"
-import { graphql, Link } from "gatsby"
+import { graphql } from "gatsby"
 import PostCard from "../components/post-card.js"
 export default ({ data }) => (
   <Layout>
@@ -12,7 +12,7 @@ export default ({ data }) => (
           border-bottom: 1px solid;
         `}
       >
-              Blog de #100DaysOfGatsby
+              Hola! Bienvenid@ a mi blog!
       </h1>
       <h4>{data.allMarkdownRemark.totalCount} Posts</h4>
       {data.allMarkdownRemark.edges.map(({ node }) => (
@@ -32,8 +32,10 @@ export const query = graphql`
           frontmatter {
             title
             date(formatString: "DD MMMM, YYYY", locale: "es-ES")
+            section
           }
           excerpt
+          timeToRead
           fields {
             slug
           }

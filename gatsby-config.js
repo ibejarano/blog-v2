@@ -6,10 +6,22 @@
 
 module.exports = {
   siteMetadata: {
-    title: `Pandas Eats Lots`,
+    title: `Blog de Ignacio Bejarano`,
   },
   plugins: [
-    `gatsby-transformer-remark`,
+    {
+      resolve: `gatsby-transformer-remark`,
+      options: {
+        plugins: [
+          {
+            resolve: `gatsby-remark-prismjs`,
+            options: {
+              showLineNumber: true,
+            },
+          },
+        ],
+      },
+    },
     `gatsby-plugin-emotion`,
     {
       resolve: `gatsby-plugin-typography`,

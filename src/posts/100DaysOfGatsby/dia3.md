@@ -50,3 +50,6 @@ query($sectionName: String!){
 
 ```
 ## Deploy
+
+Para hacer el Deploy se utilizo la plataforma Netlify.
+El proximo paso es mejorar la puntuacion dada por Lighthouse.

@@ -4,8 +4,11 @@ import Layout from "../components/layout"
 import { graphql } from "gatsby"
 import PostCard from "../components/post-card.js"
 import Sections from "../components/sections"
+import SEO from '../components/seo'
+
 export default ({ data }) => (
   <Layout>
+  <SEO title={`Blog de Ignacio Bejarano`} description={`Pagina Principal`}  />
     <div>
       <h1
         css={css`

@@ -7,8 +7,24 @@
 module.exports = {
   siteMetadata: {
     title: `Blog de Ignacio Bejarano`,
+    description: `un blog de web development y temas en general`,
+    author: `Ignacio Bejarano`,
   },
   plugins: [
+    `gatsby-plugin-react-helmet`,
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: `blog Ignacio Bejarano`,
+        short_name: `blogibj`,
+        start_url: `/`,
+        background_color: `#6b37bf`,
+        theme_color: `#6b37bf`,
+        display: `standalone`,
+        icon: `src/images/icon.png`,
+      },
+    },
+    `gatsby-plugin-offline`,
     {
       resolve: `gatsby-transformer-remark`,
       options: {

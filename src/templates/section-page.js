@@ -4,8 +4,13 @@ import Layout from "../components/layout"
 import { graphql } from "gatsby"
 import PostCard from "../components/post-card.js"
 import Sections from "../components/sections"
+import SEO from "../components/seo"
 export default ({ data }) => (
   <Layout>
+    <SEO
+      title={data.allMarkdownRemark.edges[0].node.fields.section}
+      description={`posts about ${data.allMarkdownRemark.edges[0].node.fields.section}`}
+    />
     <div>
       <h1
         css={css`
@@ -13,7 +18,7 @@ export default ({ data }) => (
           border-bottom: 1px solid;
         `}
       >
-              Hola! Bienvenid@ a mi blog!
+        Hola! Bienvenid@ a mi blog!
       </h1>
       <Sections />
       <h4>{data.allMarkdownRemark.totalCount} Posts</h4>
@@ -26,8 +31,9 @@ export default ({ data }) => (
 
 export const query = graphql`
   query($sectionName: String!) {
-    allMarkdownRemark(sort: { fields: frontmatter___date, order: DESC },
-    filter: {fields: {section: {eq: $sectionName}}}
+    allMarkdownRemark(
+      sort: { fields: frontmatter___date, order: DESC }
+      filter: { fields: { section: { eq: $sectionName } } }
     ) {
       totalCount
       edges {
@@ -42,6 +48,7 @@ export const query = graphql`
           timeToRead
           fields {
             slug
+            section
           }
         }
       }

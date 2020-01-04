@@ -37,12 +37,12 @@ export const query = graphql`
           frontmatter {
             title
             date(formatString: "DD MMMM, YYYY", locale: "es-ES")
-            section
           }
           excerpt
           timeToRead
           fields {
             slug
+            section
           }
         }
       }

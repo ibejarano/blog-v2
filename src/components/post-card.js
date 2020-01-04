@@ -4,6 +4,7 @@ import { rhythm } from "../utils/typography"
 import { Link } from "gatsby"
 
 export default ({ post }) => {
+  const blogSection = post.fields.section.replace(/-/g, ' ');
   return (
     <Link
       to={post.fields.slug}
@@ -45,13 +46,14 @@ export default ({ post }) => {
           css={css`
             font-size: 1rem;
             color: #fff;
-            background: grey;
+            background: blue;
             border-radius: 0.75rem;
             padding: 2px 4px;
             margin-bottom: 0.5rem;
+            text-transform: capitalize;
           `}
         >
-          {post.frontmatter.section}
+          {blogSection}
         </span>{" "}
         {post.timeToRead} min lectura
         <p>{post.excerpt}</p>

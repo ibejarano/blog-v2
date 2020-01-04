@@ -41,10 +41,11 @@ export default () => {
             css={css`
               text-decoration: none;
               color: inherit;
+              text-transform: capitalize;
             `}
             to={`/${node.name}`}
           >
-            {node.name}
+            {node.name.replace(/-/g, ' ')}
           </Link>
         </li>
       ))}

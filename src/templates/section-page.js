@@ -3,7 +3,6 @@ import { css } from "@emotion/core"
 import Layout from "../components/layout"
 import { graphql } from "gatsby"
 import PostCard from "../components/post-card.js"
-import Sections from "../components/sections"
 import SEO from "../components/seo"
 export default ({ data }) => (
   <Layout>
@@ -20,7 +19,6 @@ export default ({ data }) => (
       >
         Hola! Bienvenid@ a mi blog!
       </h1>
-      <Sections />
       <h4>{data.allMarkdownRemark.totalCount} Posts</h4>
       {data.allMarkdownRemark.edges.map(({ node }, ind) => (
         <PostCard key={ind} post={node} />

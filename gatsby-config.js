@@ -10,6 +10,21 @@ module.exports = {
     description: `un blog de web development y temas en general`,
     author: `Ignacio Bejarano`,
   },
+  socialLinks: [
+    {
+      username: "@IgnacioBejara13",
+      socialUrl: "https://www.twitter.com/ignaciobejara13"
+    },
+
+    {
+      username: "@ibejarano",
+      socialUrl: "https://www.github.com/ibejarano"
+    },
+    {
+      username: "@ignacio_sbe",
+      socialUrl: "https://www.instagram.com/ignacio_sbe"
+    }
+  ],
   plugins: [
     `gatsby-plugin-react-helmet`,
     {
@@ -35,6 +50,9 @@ module.exports = {
               showLineNumber: true,
             },
           },
+          {
+            resolve: `gatsby-remark-images`,
+          },
         ],
       },
     },
@@ -59,5 +77,7 @@ module.exports = {
         showSpinner: true,
       },
     },
+    `gatsby-transformer-sharp`,
+    `gatsby-plugin-sharp`,
   ],
 }

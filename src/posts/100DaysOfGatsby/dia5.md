@@ -71,4 +71,42 @@ el operador `neq` a `nin` tal como se muestra abajo.
   `)
 
 ```
-Ahora se filtran los resultados segun lo que se encuentre en dicho `Array`.
+
+## Social Links
+
+Se agregaron componentes que redirigen al usuario hacia las redes sociales. He
+aprendido y aplicado una manera de crear componentes utilizando como fuentes de
+datos el archivo `gatsby-copnfig.js` que es bastante util. En el archivo
+mencionado agrege el siguiente campo:
+
+
+```javascript
+modules.exports = {
+...,
+socialLinks: [
+  {username: "ejemplo", url:"http:..."},
+  {},
+]
+
+...,
+
+
+}
+
+
+Agregando ese nuevo campo en el `module.exports` habilita acceder a esos datos
+desde la API graphql.
+
+```javascript
+
+query {
+  site {
+    socialLinks {
+      username
+      url
+    }
+  }
+}
+```
+Desde el componente realizo el query utilizando `graphql` y `useStaticQuery` y
+de esta manera creo los componentes

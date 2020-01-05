@@ -52,6 +52,7 @@ exports.createPages = async ({ graphql, actions }) => {
   })
 
   result.data.allDirectory.edges.forEach(({ node }) => {
+    if(node.name != 'imgs'){
     createPage({
       path: node.name,
       component: path.resolve(`./src/templates/section-page.js`),
@@ -59,5 +60,6 @@ exports.createPages = async ({ graphql, actions }) => {
         sectionName: node.name,
       },
     })
+    } 
   })
 }

@@ -5,7 +5,8 @@ import { css } from "@emotion/core"
 export default () => {
   const data = useStaticQuery(graphql`
     query {
-      allDirectory(filter: { name: { ne: "posts" } }) {
+      allDirectory(filter:
+      { name: { nin: ["posts", "imgs"] }}) {
         edges {
           node {
             name

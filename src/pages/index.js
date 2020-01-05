@@ -39,11 +39,11 @@ export const query = graphql`
             date(formatString: "DD MMMM, YYYY", locale: "es-ES")
           }
           excerpt
-          timeToRead
           fields {
             slug
             section
           }
+          timeToRead
         }
       }
     }

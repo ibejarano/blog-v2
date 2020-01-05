@@ -45,11 +45,11 @@ export const query = graphql`
             section
           }
           excerpt
-          timeToRead
           fields {
             slug
             section
           }
+          timeToRead
         }
       }
     }

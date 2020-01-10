@@ -17,34 +17,41 @@ export default () => {
   return (
     <ul
       css={css`
+        grid-area: section;
         display: flex;
-        flex-flow: column wrap;
+        flex-flow: row no-wrap;
         list-style-type: none;
-        margin: 0;
-        height: 100vh;
-        position: fixed;
-        padding: 10px 0;
-        background: white;
-        border-right: 10px solid blue;
         li {
           margin: 0 auto;
-          top: 10vh;
-        }
-        li:first-child {
-          font-size: 1.25rem;
-          border-bottom: 4px solid blue;
         }
       `}
     >
-      <li> Secciones </li>
+        <li
+          css={css`
+            border-bottom: 2px solid blue;
+            transition: 0.4s ease-in-out;
+            :hover {
+              background: lightblue;
+            }
+          `}
+        >
+          <Link
+            css={css`
+              text-decoration: none;
+              color: inherit;
+              text-transform: capitalize;
+            `}
+            to='/'
+          >
+    Todos
+          </Link>
+        </li>
       {data.allDirectory.edges.map(({ node }, ind) => (
         <li
           key={ind}
           css={css`
             border-bottom: 2px solid blue;
-            padding: 1rem;
             transition: 0.4s ease-in-out;
-            width: 100%;
             :hover {
               background: lightblue;
             }

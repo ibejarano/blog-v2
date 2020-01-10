@@ -8,10 +8,10 @@ export default ({ data }) => {
   return (
     <Layout>
       <SEO title={post.frontmatter.title} description={post.excerpt} />
-      <div>
+      <section className="content-body">
         <h1>{post.frontmatter.title}</h1>
         <div dangerouslySetInnerHTML={{ __html: post.html }} />
-      </div>
+      </section>
     </Layout>
   )
 }

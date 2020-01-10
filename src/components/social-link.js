@@ -2,9 +2,9 @@ import React from "react"
 
 import { css } from "@emotion/core"
 
-export default props => {
+export default ({name, user, url}) => {
   return (
-    <a href={props.socialUrl}
+    <a href={url}
       css={css`
         background: red;
         width: 212px;
@@ -32,7 +32,7 @@ export default props => {
           margin: auto;
         `}
       >
-        {props.username}
+        {user}
       </div>
     </a>
   )

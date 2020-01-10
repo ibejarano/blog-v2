@@ -7,16 +7,18 @@ export default () => {
   const data = useStaticQuery(graphql`
     query {
       site {
-        socialLinks {
-         username
-         socialUrl
+        siteMetadata {
+          socialLinks {
+            name
+            user
+            url
+          }
         }
       }
     }
-  
   `)
 
-  const { socialLinks } = data.site
+  const { socialLinks } = data.site.siteMetadata
 
   return (
     <div
@@ -27,7 +29,7 @@ export default () => {
       `}
     >
       {socialLinks.map((social, idx) => (
-        <SocialLink socialUrl={social.socialUrl} username={social.username} />
+        <SocialLink {...social} />
       ))}
     </div>
   )

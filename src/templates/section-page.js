@@ -10,7 +10,7 @@ export default ({ data }) => (
       title={data.allMarkdownRemark.edges[0].node.fields.section}
       description={`posts about ${data.allMarkdownRemark.edges[0].node.fields.section}`}
     />
-    <div>
+    <section className="content-body">
       <h1
         css={css`
           display: inline-block;
@@ -23,7 +23,7 @@ export default ({ data }) => (
       {data.allMarkdownRemark.edges.map(({ node }, ind) => (
         <PostCard key={ind} post={node} />
       ))}
-    </div>
+    </section>
   </Layout>
 )
 

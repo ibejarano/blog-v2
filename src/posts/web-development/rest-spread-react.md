@@ -1,0 +1,139 @@
+---
+title: "Operador Spread, Rest & React"
+date: "2020-01-07"
+---
+
+En este post vamos a explorar un poco el operador Rest, Spread y su aplicacion
+en el framework React.
+
+# Operador Rest
+
+Existen ciertas funciones, ya sea por motivos de la propia operacion o la
+estructura del codigo ha llevado que esto sea asi, en el que la cantidad de
+argumentos que puede aceptar no es conocida a priori. Su sintaxis es la
+siguiente.
+
+```javascript
+function Ejemplo(...args){
+  ...
+}
+```
+El operador consta de los tres puntos `...`. 
+
+### Y... que hace el operador `...` ?
+
+El operador toma todos los argumentos y los coloca en un `Array`.
+
+```javascript
+function Ejemplo(...args){
+  console.log(args)
+}
+
+Ejemplo(1, 2, 3, 4)
+
+// Array: [1, 2, 3, 4]
+
+```
+
+Por ejemplo un ejemplo tipico en el que utiliza este operador seria para definir
+una funcion que obtenga el minimo o maximo de una serie de numeros:
+
+```javascript
+function min(...args){
+  return args.reduce((accu,num) => (
+    (num < accu)? num : accu
+))
+}
+```
+En el ejemplo de arriba vemos que podemos aplicar los metodos de un `Array` a la
+variable `args` para encontrar el minimo.
+
+Por otra parte tambien se pueden combinar al operador Rest con otros argumentos,
+siempre y cuando el operador se aplique sobre el ultimo argumento.
+
+```javascript
+function OtraFuncion(arg1, arg2, ...args){
+  console.log(arg1)
+  console.log(arg2)
+  console.log(args)
+}
+OtraFuncion(1, 2, 3, 4, 5)
+// arg1: 1
+// arg2: 2
+// args: [3, 4, 5]
+
+```
+
+En la funcion de arriba si la llamamos con los siguientes argumentos
+```javascript
+OtraFuncion(1,2)
+// arg1: 1
+// arg2: 2
+// args: []
+
+```
+Vemos que `args` sera un `Array` vacio.
+
+## Operador Spread
+El operador Spread hace lo inverso, toma un iterable y devuelve una copia de sus elementos.
+
+### Spread de Arrays
+Para el caso del `Array` el operador sirve para componer varios `Array`
+```javascript
+const arr1 = [1,2,3,4]
+const arr2 = [5,6,7,8]
+
+const arr3 = [...arr1, 11, 12]
+const arr4 = [...arr1, ...arr2]
+
+console.log(arr3)
+// [1,2,3,4, 11, 12]
+console.log(arr4)
+// [1,2,3,4,5,6,7,8]
+```
+### Spread en objetos
+
+Sin dudas hacer un spread en objetos es el uso mas interesante.
+Presentada la siguiente situacion:
+```javascript
+let obj1 = {name: 'Carlos'};
+let obj2 = obj1
+obj2.name = 'Juan'
+
+console.log(obj1.name)
+// obj1.name: 'Juan'
+
+```
+Cambiando la propiedad del `obj2` estoy afectando al `obj1`, esto pasa porque
+cuando asignamos `obj2 = obj1` ambos ocupan el mismo lugar en la memoria, o
+dicho de otra manera, ambas variables son el mismo objeto. El operador spread en
+este caso lo que hace es copiar todos los valores y keys del `obj1` en el `obj2`
+:
+
+```javascript
+let obj1 = {name: 'Carlos'};
+let obj2 = {...obj1}
+obj2.name = 'Juan'
+
+console.log(obj1.name)
+// obj1.name: 'Carlos'
+
+console.log(obj2.name)
+// obj2.name: 'Juan'
+```
+
+## Operador Spread & React
+En React una utilidad interesante del operador spread es cuando queremos pasar
+`props` a un componente, por ej:
+
+```javascript
+const obj = {title: 'Title 1' , body: 'Text body'}
+
+<Message title={obj.title} body={obj.body} />
+
+<Message {...obj} />
+
+```
+
+La manera de pasar los `props` en ambos casos es la misma.
+

@@ -3,28 +3,15 @@
  *
  * See: https://www.gatsbyjs.org/docs/gatsby-config/
  */
+const config = require('./config')
 
 module.exports = {
   siteMetadata: {
     title: `Blog de Ignacio Bejarano`,
     description: `un blog de web development y temas en general`,
     author: `Ignacio Bejarano`,
+    socialLinks: config.socialLinks
   },
-  socialLinks: [
-    {
-      username: "@IgnacioBejara13",
-      socialUrl: "https://www.twitter.com/ignaciobejara13"
-    },
-
-    {
-      username: "@ibejarano",
-      socialUrl: "https://www.github.com/ibejarano"
-    },
-    {
-      username: "@ignacio_sbe",
-      socialUrl: "https://www.instagram.com/ignacio_sbe"
-    }
-  ],
   plugins: [
     `gatsby-plugin-react-helmet`,
     {
@@ -68,13 +55,6 @@ module.exports = {
       options: {
         name: `src`,
         path: `${__dirname}/src/posts/`,
-      },
-    },
-    {
-      resolve: `gatsby-plugin-nprogress`,
-      options: {
-        color: `tomato`,
-        showSpinner: true,
       },
     },
     `gatsby-transformer-sharp`,

@@ -3,25 +3,30 @@ import { css } from "@emotion/core"
 import Layout from "../components/layout"
 import { graphql } from "gatsby"
 import PostCard from "../components/post-card.js"
-import SEO from '../components/seo'
+import SEO from "../components/seo"
 
 export default ({ data }) => (
   <Layout>
-  <SEO title={`Blog de Ignacio Bejarano`} description={`Pagina Principal`}  />
-    <div>
+    <SEO title={`Blog de Ignacio Bejarano`} description={`Pagina Principal`} />
+    <section
+      className="content-body"
+      css={css`
+        grid-area: body;
+      `}
+    >
       <h1
         css={css`
           display: inline-block;
           border-bottom: 1px solid;
         `}
       >
-              Hola! Bienvenid@ a mi blog!
+        Hola! Bienvenid@ a mi blog!
       </h1>
       <h4>{data.allMarkdownRemark.totalCount} Posts</h4>
       {data.allMarkdownRemark.edges.map(({ node }, ind) => (
         <PostCard key={ind} post={node} />
       ))}
-    </div>
+    </section>
   </Layout>
 )
 

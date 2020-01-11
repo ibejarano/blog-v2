@@ -5,6 +5,11 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
     const slug = createFilePath({ node, getNode, basePath: `posts` })
     const { createNodeField } = actions
     const section = slug.split("/", 2)[1]
+    let tags = [];
+    const {keywords} = node.frontmatter
+    if (keywords) {
+      tags = keywords.split(',')
+    }
     createNodeField({
       node,
       name: `slug`,
@@ -14,6 +19,11 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
       node,
       name: `section`,
       value: section,
+    })
+    createNodeField({
+      node,
+      name: `tags`,
+      value: tags,
     })
   }
 }
@@ -27,6 +37,7 @@ exports.createPages = async ({ graphql, actions }) => {
           node {
             fields {
               slug
+              tags
             }
           }
         }
@@ -47,6 +58,7 @@ exports.createPages = async ({ graphql, actions }) => {
       component: path.resolve(`./src/templates/blog-post.js`),
       context: {
         slug: node.fields.slug,
+        tags: node.fields.tags
       },
     })
   })

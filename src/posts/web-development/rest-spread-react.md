@@ -1,6 +1,7 @@
 ---
 title: "Operador Spread, Rest & React"
 date: "2020-01-07"
+keywords: react,javascript
 ---
 
 En este post vamos a explorar un poco el operador Rest, Spread y su aplicacion
@@ -95,7 +96,7 @@ console.log(arr4)
 
 Sin dudas hacer un spread en objetos es el uso mas interesante.
 Presentada la siguiente situacion:
-```javascript
+```javascript{numberLines: true}
 let obj1 = {name: 'Carlos'};
 let obj2 = obj1
 obj2.name = 'Juan'
@@ -126,7 +127,7 @@ console.log(obj2.name)
 En React una utilidad interesante del operador spread es cuando queremos pasar
 `props` a un componente, por ej:
 
-```javascript
+```jsx{numberLines:true}
 const obj = {title: 'Title 1' , body: 'Text body'}
 
 <Message title={obj.title} body={obj.body} />

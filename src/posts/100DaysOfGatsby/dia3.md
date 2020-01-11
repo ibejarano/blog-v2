@@ -1,7 +1,7 @@
 ---
 title: "Dia 3: Blog Secciones & Deploy"
 date: "2020-01-03"
-section: "100DaysOfGatsby"
+keywords: deploy,gatsby,graphql
 ---
 
 ## Agregando Secciones

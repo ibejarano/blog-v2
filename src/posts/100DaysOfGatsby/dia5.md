@@ -1,6 +1,7 @@
 ---
 title: "Dia 5: Bug fix & social links"
 date: "2020-01-05"
+keywords: gatsby,filter
 ---
 
 ## Bug Fixing

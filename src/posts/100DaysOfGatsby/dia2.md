@@ -1,7 +1,7 @@
 ---
 title: "Dia 2: Challenge #1 (Blog)"
 date: "2020-01-02"
-section: "100DaysOfGatsby"
+keywords: markdown,gatsby
 ---
 
 En este día no tuve mucho tiempo. Cambié un poco la estructura respecto a los archivos .md, para poder crear secciones nuevas, la primera secciòn la llamè #100DaysOfGatsby. Esto debido a que tengo planeado usarla para otros temas. Además modifiqué un `query` para poder obtener las fechas en español.

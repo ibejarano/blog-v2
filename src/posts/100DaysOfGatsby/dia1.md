@@ -1,7 +1,7 @@
 ---
 title: "Dia 1: Tutoriales básicos"
 date: "2020-01-01"
-section: "100DaysOfGatsby"
+keywords: gatsby
 ---
 
 Hoy comencé con los desafíos propuestos por el #100DaysOfGatsby. Estuve leyendo y practicando todos los tutoriales para iniciantes propuestos.

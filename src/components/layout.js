@@ -10,7 +10,7 @@ export default ({ children }) => {
     <div css={css`
         display: grid;
         grid-template-rows: 100px 50px auto;
-        grid-template-columns: 200px auto 200px;
+        grid-template-columns: 1fr 600px 1fr;
         grid-template-areas: 
           ". nav ."
           ". section ."

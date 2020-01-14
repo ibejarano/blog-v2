@@ -3,16 +3,24 @@
  *
  * See: https://www.gatsbyjs.org/docs/gatsby-config/
  */
-const config = require('./config')
+const config = require("./config")
 
 module.exports = {
   siteMetadata: {
     title: `Blog de Ignacio Bejarano`,
     description: `un blog de web development y temas en general`,
     author: `Ignacio Bejarano`,
-    socialLinks: config.socialLinks
+    socialLinks: config.socialLinks,
   },
   plugins: [
+    {
+      resolve: `gatsby-plugin-tinacms`,
+      options: {
+        plugins: [`gatsby-tinacms-git`, `gatsby-tinacms-remark`],
+        position: `fixed`,
+      },
+    },
+
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-plugin-manifest`,

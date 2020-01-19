@@ -2,7 +2,7 @@ const { createFilePath } = require(`gatsby-source-filesystem`)
 const path = require(`path`)
 exports.onCreateNode = ({ node, getNode, actions }) => {
   if (node.internal.type === `MarkdownRemark`) {
-    const slug = createFilePath({ node, getNode, basePath: `posts` })
+    const slug = createFilePath({ node, getNode, basePath: `content` })
     const { createNodeField } = actions
     const section = slug.split("/", 2)[1]
     let tags = [];
@@ -42,7 +42,7 @@ exports.createPages = async ({ graphql, actions }) => {
           }
         }
       }
-      allDirectory(filter: { name: { ne: "posts" } }) {
+      allDirectory(filter: { name: { ne: "content" } }) {
         edges {
           node {
             name
@@ -64,6 +64,7 @@ exports.createPages = async ({ graphql, actions }) => {
   })
 
   result.data.allDirectory.edges.forEach(({ node }) => {
+    console.log(node.name)
     if(node.name != 'imgs'){
     createPage({
       path: node.name,

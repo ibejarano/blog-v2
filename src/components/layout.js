@@ -12,25 +12,28 @@ const CreatePostButton = createRemarkButton({
   label: "New Post",
   filename(form) {
     let slug = slugify(form.title.toLowerCase())
-    return `content/blog/${slug}/${slug}.md`
+    return `content/${form.section}/${slug}.md`
   },
   frontmatter(form) {
-    let slug = slugify(form.title.toLowerCase())
     return new Promise(resolve => {
       resolve({
         title: form.title,
-        description: form.description,
-        data: new Date(),
-        path: `content/blog/${slug}/${slug}`,
+        date: new Date(),
       })
     })
   },
   fields: [
     { name: "title", label: "Title", component: "text", required: true },
     {
-      name: "description",
-      label: "Description",
-      component: "text",
+      name: "section",
+      label: "Seccion",
+      component: "select",
+      options: [
+        "General",
+        "web-development",
+        "100DaysOfGatsby"
+        
+      ],
       required: true,
     },
   ],

@@ -1,7 +1,5 @@
 import React from "react"
-import { liveRemarkForm , DeleteAction } from "gatsby-tinacms-remark"
-import { Wysiwyg } from "@tinacms/fields"
-import { TinaField } from "@tinacms/form-builder"
+import { remarkForm, DeleteAction } from "gatsby-tinacms-remark"
 import Layout from "../components/layout"
 import { graphql } from "gatsby"
 import SEO from "../components/seo"
@@ -10,18 +8,32 @@ import RelatedPosts from "../components/related-posts"
 
 const deleteButton = {
   label: `Delete`,
-  actions: [DeleteAction]
+  actions: [DeleteAction],
+}
+const BlogPostForm = {
+  fields: [
+    {
+      label: "Title",
+      name: "frontmatter.title",
+      description: "Enter the title of the post here",
+      component: "text",
+    },
+    {
+      label: "Description",
+      name: "frontmatter.description",
+      description: "Enter the post description",
+      component: "textarea",
+    },
+  ],
 }
 
-const BlogPostTemplate = ({ data, pageContext, setIsEditing }) => {
+const BlogPostTemplate = ({ data }) => {
   const post = data.markdownRemark
   const relatedPosts = data.allMarkdownRemark.edges
-  const { previous, next } = pageContext
   return (
     <Layout>
       <SEO title={post.frontmatter.title} description={post.excerpt} />
-    <TinaField name="rawMarkdownBody" Component={Wysiwyg}>
-      <article onClick={() => setIsEditing(true)}
+      <article
         css={css`
           background: white;
           padding: 1rem;
@@ -30,7 +42,6 @@ const BlogPostTemplate = ({ data, pageContext, setIsEditing }) => {
         <h1>{post.frontmatter.title}</h1>
         <div dangerouslySetInnerHTML={{ __html: post.html }} />
       </article>
-    </TinaField>
       <section
         css={css`
           background: white;
@@ -44,7 +55,7 @@ const BlogPostTemplate = ({ data, pageContext, setIsEditing }) => {
   )
 }
 
-export default liveRemarkForm(BlogPostTemplate, deleteButton)
+export default remarkForm(BlogPostTemplate, BlogPostForm, deleteButton)
 
 export const query = graphql`
   query($slug: String!, $tags: [String!]) {
@@ -55,8 +66,7 @@ export const query = graphql`
       }
       excerpt
       fileRelativePath
-      rawFrontmatter
-      rawMarkdownBody
+      ...TinaRemark
     }
 
     allMarkdownRemark(filter: { fields: { tags: { in: $tags } } }) {

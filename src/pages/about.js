@@ -3,6 +3,7 @@ import { graphql } from "gatsby"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { css } from "@emotion/core"
+import Img from "gatsby-image"
 
 export default ({ data }) => (
   <Layout>
@@ -23,6 +24,7 @@ export default ({ data }) => (
         una serie de desafíos llamados{" "}
         <a href="https://www.gatsbyjs.org/blog/100days/">100DaysOfGatsby</a>
       </p>
+      <Img alt="an image" fixed={data.file.childImageSharp.fixed} />
     </section>
   </Layout>
 )
@@ -32,6 +34,13 @@ export const query = graphql`
     site {
       siteMetadata {
         title
+      }
+    }
+    file(relativePath: { eq: "sample.png" }) {
+      childImageSharp {
+        fixed(grayscale: true){
+          ...GatsbyImageSharpFixed
+        }
       }
     }
   }

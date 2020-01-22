@@ -6,7 +6,8 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
     const { createNodeField } = actions
     const section = slug.split("/", 2)[1]
     let tags = [];
-    const {keywords} = node.frontmatter
+    const {keywords, date} = node.frontmatter
+    const [year, month] = date.slice(0,7).split('-')
     if (keywords) {
       tags = keywords.split(',')
     }
@@ -24,6 +25,16 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
       node,
       name: `tags`,
       value: tags,
+    })
+    createNodeField({
+      node,
+      name: `year`,
+      value: year,
+    })
+    createNodeField({
+      node,
+      name: `month`,
+      value: month,
     })
   }
 }

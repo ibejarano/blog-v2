@@ -5,11 +5,11 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
     const slug = createFilePath({ node, getNode, basePath: `content` })
     const { createNodeField } = actions
     const section = slug.split("/", 2)[1]
-    let tags = [];
-    const {keywords, date} = node.frontmatter
-    const [year, month] = date.slice(0,7).split('-')
+    let tags = []
+    const { keywords, date } = node.frontmatter
+    const yearAndMonth = date.slice(0, 7)
     if (keywords) {
-      tags = keywords.split(',')
+      tags = keywords.split(",")
     }
     createNodeField({
       node,
@@ -28,13 +28,8 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
     })
     createNodeField({
       node,
-      name: `year`,
-      value: year,
-    })
-    createNodeField({
-      node,
-      name: `month`,
-      value: month,
+      name: `yearAndMonth`,
+      value: yearAndMonth,
     })
   }
 }
@@ -69,21 +64,21 @@ exports.createPages = async ({ graphql, actions }) => {
       component: path.resolve(`./src/templates/blog-post.js`),
       context: {
         slug: node.fields.slug,
-        tags: node.fields.tags
+        tags: node.fields.tags,
       },
     })
   })
 
   result.data.allDirectory.edges.forEach(({ node }) => {
     console.log(node.name)
-    if(node.name != 'imgs'){
-    createPage({
-      path: node.name,
-      component: path.resolve(`./src/templates/section-page.js`),
-      context: {
-        sectionName: node.name,
-      },
-    })
-    } 
+    if (node.name != "imgs") {
+      createPage({
+        path: node.name,
+        component: path.resolve(`./src/templates/section-page.js`),
+        context: {
+          sectionName: node.name,
+        },
+      })
+    }
   })
 }

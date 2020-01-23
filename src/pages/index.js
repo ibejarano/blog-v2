@@ -4,7 +4,6 @@ import Layout from "../components/layout"
 import { graphql } from "gatsby"
 import PostCard from "../components/post-card"
 import SEO from "../components/seo"
-import Archives from "../components/archives"
 
 export default ({ data }) => (
   <Layout>
@@ -23,7 +22,6 @@ export default ({ data }) => (
       >
         Hola! Bienvenid@ a mi blog!
       </h1>
-      <Archives />
       <h4>{data.allMarkdownRemark.totalCount} Posts</h4>
       {data.allMarkdownRemark.edges.map(({ node }, ind) => (
         <PostCard key={ind} post={node} />

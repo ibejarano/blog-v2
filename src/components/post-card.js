@@ -2,6 +2,7 @@ import React from "react"
 import { css } from "@emotion/core"
 import { rhythm } from "../utils/typography"
 import { Link } from "gatsby"
+import Img from "gatsby-image"
 
 export default ({ post }) => {
   const blogSection = post.fields.section.replace(/-/g, " ")
@@ -55,7 +56,14 @@ export default ({ post }) => {
             - {post.frontmatter.date}
           </span>
         </h3>
-        <p css={css`margin-bottom: 0;`}>
+        {post.file && (
+          <Img fixed={post.file.childImageSharp.fixed} alt="post-cover" />
+        )}
+        <p
+          css={css`
+            margin-bottom: 0;
+          `}
+        >
           {post.excerpt}
           <span
             css={css`
@@ -65,7 +73,7 @@ export default ({ post }) => {
               left: 78%;
               display: block;
               background: black;
-            border-radius: 0.75rem 0rem 0.5rem 0rem;
+              border-radius: 0.75rem 0rem 0.5rem 0rem;
               color: white;
               padding-left: 10px;
             `}

@@ -41,6 +41,9 @@ exports.createPages = async ({ graphql, actions }) => {
         totalCount
         edges {
           node {
+            frontmatter {
+              cover
+            }
             fields {
               slug
               tags
@@ -48,7 +51,7 @@ exports.createPages = async ({ graphql, actions }) => {
           }
         }
       }
-      allDirectory(filter: { name: { ne: "content" } }) {
+      allDirectory(filter: { name: { nin: ["content", "cover"] } }) {
         edges {
           node {
             name
@@ -64,7 +67,7 @@ exports.createPages = async ({ graphql, actions }) => {
       component: path.resolve(`./src/templates/blog-post.js`),
       context: {
         slug: node.fields.slug,
-        tags: node.fields.tags,
+        tags: node.fields.tags
       },
     })
   })

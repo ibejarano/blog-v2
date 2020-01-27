@@ -26,7 +26,7 @@ const BlogPostForm = {
   ],
 }
 
-const BlogPostTemplate = ({ data, pageContext }) => {
+const BlogPostTemplate = ({ data }) => {
   const post = data.markdownRemark
   const relatedPosts = data.allMarkdownRemark.edges
   return (

@@ -43,6 +43,7 @@ export const query = graphql`
           fields {
             slug
             section
+            cover
           }
           timeToRead
         }

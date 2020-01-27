@@ -3,11 +3,9 @@ import { css } from "@emotion/core"
 import Layout from "../components/layout"
 import { graphql } from "gatsby"
 import PostCard from "../components/post-card"
-import SEO from "../components/seo"
 
 export default ({ data }) => (
-  <Layout>
-    <SEO title={`Blog de Ignacio Bejarano`} description={`Pagina Principal`} />
+  <Layout title={`Blog de Ignacio Bejarano`} description={`Pagina Principal`}>
     <section
       className="content-body"
       css={css`

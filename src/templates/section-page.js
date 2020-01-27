@@ -3,13 +3,11 @@ import { css } from "@emotion/core"
 import Layout from "../components/layout"
 import { graphql } from "gatsby"
 import PostCard from "../components/post-card.js"
-import SEO from "../components/seo"
 export default ({ data }) => (
-  <Layout>
-    <SEO
-      title={data.allMarkdownRemark.edges[0].node.fields.section}
-      description={`posts about ${data.allMarkdownRemark.edges[0].node.fields.section}`}
-    />
+  <Layout
+    title={data.allMarkdownRemark.edges[0].node.fields.section}
+    description={`posts about ${data.allMarkdownRemark.edges[0].node.fields.section}`}
+  >
     <section className="content-body">
       <h1
         css={css`

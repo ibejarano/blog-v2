@@ -2,7 +2,6 @@ import React from "react"
 import { remarkForm, DeleteAction } from "gatsby-tinacms-remark"
 import Layout from "../components/layout"
 import { graphql } from "gatsby"
-import SEO from "../components/seo"
 import { css } from "@emotion/core"
 import RelatedPosts from "../components/related-posts"
 
@@ -27,12 +26,11 @@ const BlogPostForm = {
   ],
 }
 
-const BlogPostTemplate = ({ data }) => {
+const BlogPostTemplate = ({ data, pageContext }) => {
   const post = data.markdownRemark
   const relatedPosts = data.allMarkdownRemark.edges
   return (
-    <Layout>
-      <SEO title={post.frontmatter.title} description={post.excerpt} />
+    <Layout title={post.frontmatter.title} description={post.excerpt}>
       <article
         css={css`
           background: white;

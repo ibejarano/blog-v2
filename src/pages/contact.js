@@ -4,7 +4,7 @@ import {css} from '@emotion/core'
 
 export default () => {
   return (
-    <Layout>
+    <Layout title='Contacto' description='pagina con mi informacion de contacto'>
       <div css={css`
         background: white;
         border:  4px solid black;

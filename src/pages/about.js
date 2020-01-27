@@ -1,13 +1,11 @@
 import React from "react"
 import { graphql } from "gatsby"
 import Layout from "../components/layout"
-import SEO from "../components/seo"
 import { css } from "@emotion/core"
 import Img from "gatsby-image"
 
 export default ({ data }) => (
-  <Layout>
-    <SEO title={`Sobre mi`} about={`Un poco sobre el author...`} />
+  <Layout title={`Sobre mi`} about={`Un poco sobre el author...`}>
     <section
       css={css`
         background: white;
@@ -38,7 +36,7 @@ export const query = graphql`
     }
     file(relativePath: { eq: "sample.png" }) {
       childImageSharp {
-        fixed(grayscale: true){
+        fixed(grayscale: true) {
           ...GatsbyImageSharpFixed
         }
       }

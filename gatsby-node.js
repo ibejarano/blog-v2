@@ -1,12 +1,30 @@
-const { createFilePath } = require(`gatsby-source-filesystem`)
+const {
+  createFilePath,
+  createRemoteFileNode,
+} = require(`gatsby-source-filesystem`)
 const path = require(`path`)
-exports.onCreateNode = ({ node, getNode, actions }) => {
+
+exports.createSchemaCustomization = ({ actions }) => {
+  const { createTypes } = actions
+  createTypes(`
+    type MarkdownRemark implements Node {
+      frontmatter: Frontmatter
+    }
+    type Frontmatter {
+      title: String!
+      coverUrl: String
+      coverAlt: String
+    }
+  `)
+}
+
+exports.onCreateNode = async ({ node, getNode, actions, cache, store, createNodeId }) => {
   if (node.internal.type === `MarkdownRemark`) {
     const slug = createFilePath({ node, getNode, basePath: `content` })
-    const { createNodeField } = actions
+    const { createNodeField, createNode } = actions
     const section = slug.split("/", 2)[1]
     let tags = []
-    const { keywords, date } = node.frontmatter
+    const { keywords, date, coverUrl } = node.frontmatter
     const yearAndMonth = date.slice(0, 7)
     if (keywords) {
       tags = keywords.split(",")
@@ -31,6 +49,19 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
       name: `yearAndMonth`,
       value: yearAndMonth,
     })
+    if (coverUrl){
+      let fileNode = await createRemoteFileNode({
+        url: node.frontmatter.coverUrl,
+        parentNodeId: node.id,
+        createNode,
+        createNodeId,
+        cache,
+        store
+      })
+      if (fileNode){
+        node.featuredImg___NODE = fileNode.id
+      }
+    }
   }
 }
 
@@ -41,9 +72,6 @@ exports.createPages = async ({ graphql, actions }) => {
         totalCount
         edges {
           node {
-            frontmatter {
-              cover
-            }
             fields {
               slug
               tags
@@ -67,7 +95,7 @@ exports.createPages = async ({ graphql, actions }) => {
       component: path.resolve(`./src/templates/blog-post.js`),
       context: {
         slug: node.fields.slug,
-        tags: node.fields.tags
+        tags: node.fields.tags,
       },
     })
   })

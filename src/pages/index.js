@@ -43,9 +43,15 @@ export const query = graphql`
           fields {
             slug
             section
-            cover
           }
           timeToRead
+          featuredImg {
+            childImageSharp {
+              fixed(height: 200) {
+                ...GatsbyImageSharpFixed
+              }
+            }
+          }
         }
       }
     }

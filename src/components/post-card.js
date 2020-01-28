@@ -7,25 +7,28 @@ import Img from "gatsby-image"
 export default ({ post }) => {
   const blogSection = post.fields.section.replace(/-/g, " ")
   return (
-    <Link
-      to={post.fields.slug}
+    <div
       css={css`
-        text-decoration: none;
-        color: inherit;
+        border: 2px solid #222;
+        display: flex;
+        align-items: stretch;
+        margin-bottom: 1rem;
+        padding: 0rem 0.2rem;
+        padding-right: 0;
+        background: white;
+        border-radius: 10px;
+        transition: 0.1s ease-in-out;
+        :hover {
+          box-shadow: -10px 6px blue;
+          transform: translate(10px, -6px);
+        }
       `}
     >
       <div
         css={css`
-          border: 2px solid #222;
-          margin-bottom: 1rem;
-          padding: 0rem 0.2rem;
-          background: white;
-          border-radius: 10px;
-          transition: 0.1s ease-in-out;
-          :hover {
-            box-shadow: -10px 6px blue;
-            transform: translate(10px, -6px);
-          }
+          display: flex;
+          flex-flow: column nowrap;
+          justify-content: space-between;
         `}
       >
         <span
@@ -41,47 +44,55 @@ export default ({ post }) => {
         >
           {blogSection}
         </span>{" "}
-        <h3
+        <Link
+          to={post.fields.slug}
           css={css`
-            margin-bottom: ${rhythm(1 / 4)};
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: row;
           `}
         >
-          {post.frontmatter.title}
-          <span
+          <h3
             css={css`
-              color: #00b;
+              margin-bottom: ${rhythm(1 / 4)};
             `}
           >
-            {" "}
-            - {post.frontmatter.date}
-          </span>
-        </h3>
-        {post.file && (
-          <Img fixed={post.file.childImageSharp.fixed} alt="post-cover" />
-        )}
+            {post.frontmatter.title}
+            <span
+              css={css`
+                color: #00b;
+              `}
+            >
+              {" "}
+              - {post.frontmatter.date}
+            </span>
+          </h3>
+        </Link>
         <p
           css={css`
             margin-bottom: 0;
           `}
         >
           {post.excerpt}
-          <span
-            css={css`
-              position: relative;
-              top: 100%;
-              width: 23%;
-              left: 78%;
-              display: block;
-              background: black;
-              border-radius: 0.75rem 0rem 0.5rem 0rem;
-              color: white;
-              padding-left: 10px;
-            `}
-          >
-            {post.timeToRead} min lectura
-          </span>
         </p>
+        <span
+          css={css`
+            width: 170px;
+            left: 0%;
+            margin-left: -0.2rem;
+            background: black;
+            border-radius: 0 8px 0 8px;
+            color: white;
+            padding-left: 10px;
+          `}
+        >
+          {post.timeToRead} min lectura
+        </span>
       </div>
-    </Link>
+      {post.featuredImg && (
+        <Img fixed={post.featuredImg.childImageSharp.fixed} alt="post-cover" />
+      )}
+    </div>
   )
 }

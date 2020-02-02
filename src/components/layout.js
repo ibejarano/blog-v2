@@ -42,12 +42,12 @@ const Layout = ({ children, title, description }) => {
       css={css`
         display: grid;
         grid-template-rows: 100px 50px auto;
-        grid-template-columns: 1fr 900px 1fr;
+        grid-template-columns: 1fr 1fr 900px 1fr 1fr;
         grid-gap: 20px;
         grid-template-areas:
-          "nav nav nav"
-          ". section ."
-          ". body archives";
+          ". nav nav nav ."
+          ". . section . ."
+          ". . body archives . ";
       `}
     >
       <SEO title={title} description={description} />

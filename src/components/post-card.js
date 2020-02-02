@@ -5,7 +5,6 @@ import { Link } from "gatsby"
 import Img from "gatsby-image"
 
 export default ({ post }) => {
-  const blogSection = post.fields.section.replace(/-/g, " ")
   return (
     <div
       css={css`
@@ -31,19 +30,21 @@ export default ({ post }) => {
           justify-content: space-between;
         `}
       >
-        <span
-          css={css`
-            font-size: 1rem;
-            color: #fff;
-            background: blue;
-            border-radius: 0.5rem 0rem 0.75rem 0rem;
-            padding: 2px 4px;
-            margin-left: -0.2rem;
-            text-transform: capitalize;
-          `}
-        >
-          {blogSection}
-        </span>{" "}
+        {post.fields.section && (
+          <span
+            css={css`
+              font-size: 1rem;
+              color: #fff;
+              background: blue;
+              border-radius: 0.5rem 0rem 0.75rem 0rem;
+              padding: 2px 4px;
+              margin-left: -0.2rem;
+              text-transform: capitalize;
+            `}
+          >
+            {post.fields.section.replace(/-/g, " ")}
+          </span>
+        )}
         <Link
           to={post.fields.slug}
           css={css`

@@ -15,7 +15,7 @@ export default ({ data }) => (
           border-bottom: 1px solid;
         `}
       >
-        Hola! Bienvenid@ a mi blog!
+        {data.allMarkdownRemark.edges[0].node.fields.section}
       </h1>
       <h4>{data.allMarkdownRemark.totalCount} Posts</h4>
       {data.allMarkdownRemark.edges.map(({ node }, ind) => (
@@ -38,12 +38,10 @@ export const query = graphql`
           frontmatter {
             title
             date(formatString: "DD MMMM, YYYY", locale: "es-ES")
-            section
           }
           excerpt
           fields {
             slug
-            section
           }
           timeToRead
         }

@@ -13,6 +13,7 @@ module.exports = {
     socialLinks: config.socialLinks,
   },
   plugins: [
+    `gatsby-plugin-mdx`,
     {
       resolve: `gatsby-plugin-tinacms`,
       options: {

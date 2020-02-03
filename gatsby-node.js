@@ -18,9 +18,17 @@ exports.createSchemaCustomization = ({ actions }) => {
   `)
 }
 
-exports.onCreateNode = async ({ node, getNode, actions, cache, store, createNodeId }) => {
-  if (node.internal.type === `MarkdownRemark`) {
+exports.onCreateNode = async ({
+  node,
+  getNode,
+  actions,
+  cache,
+  store,
+  createNodeId,
+}) => {
+  if (node.internal.type === `MarkdownRemark` || node.internal.type === `Mdx`) {
     const slug = createFilePath({ node, getNode, basePath: `content` })
+    console.log(slug)
     const { createNodeField, createNode } = actions
     const section = slug.split("/", 2)[1]
     let tags = []
@@ -49,16 +57,16 @@ exports.onCreateNode = async ({ node, getNode, actions, cache, store, createNode
       name: `yearAndMonth`,
       value: yearAndMonth,
     })
-    if (coverUrl){
+    if (coverUrl) {
       let fileNode = await createRemoteFileNode({
         url: node.frontmatter.coverUrl,
         parentNodeId: node.id,
         createNode,
         createNodeId,
         cache,
-        store
+        store,
       })
-      if (fileNode){
+      if (fileNode) {
         node.featuredImg___NODE = fileNode.id
       }
     }
@@ -79,6 +87,17 @@ exports.createPages = async ({ graphql, actions }) => {
           }
         }
       }
+      allMdx(sort: { fields: frontmatter___date, order: DESC }) {
+        totalCount
+        edges {
+          node {
+            fields {
+              slug
+              tags
+            }
+          }
+        }
+      }
       allDirectory(filter: { name: { nin: ["content", "cover"] } }) {
         edges {
           node {
@@ -89,10 +108,22 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   `)
   const { createPage } = actions
+  // Creating normal markdown pages
   result.data.allMarkdownRemark.edges.forEach(({ node }) => {
     createPage({
       path: node.fields.slug,
       component: path.resolve(`./src/templates/blog-post.js`),
+      context: {
+        slug: node.fields.slug,
+        tags: node.fields.tags,
+      },
+    })
+  })
+
+  result.data.allMdx.edges.forEach(({ node }) => {
+    createPage({
+      path: node.fields.slug,
+      component: path.resolve(`./src/templates/blog-post-mdx.js`),
       context: {
         slug: node.fields.slug,
         tags: node.fields.tags,

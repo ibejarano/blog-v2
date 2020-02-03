@@ -1,31 +1,22 @@
 import React from "react"
-import { remarkForm, DeleteAction } from "gatsby-tinacms-remark"
 import Layout from "../components/layout"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import { graphql } from "gatsby"
 import { css } from "@emotion/core"
 import RelatedPosts from "../components/related-posts"
 
-export default function ({ data: { mdx, allMdx } }) {
+export default function({ data }) {
+  const post = data.mdx
+  const relatedPosts = data.allMdx.edges
+  console.log(post)
   return (
-    <Layout title={mdx.frontmatter.title} description={mdx.excerpt}>
-      <article
-        css={css`
-          background: white;
-          padding: 1rem;
-        `}
-      >
-        <h1>{mdx.frontmatter.title}</h1>
-        <MDXRenderer>{mdx.body}</MDXRenderer>
+    <Layout title={post.frontmatter.title} description={post.excerpt}>
+      <article>
+        <h1>{post.frontmatter.title}</h1>
+        <MDXRenderer>{post.body}</MDXRenderer>
       </article>
-      <section
-        css={css`
-          background: white;
-          padding: 0 1rem;
-          margin-top: 2rem;
-        `}
-      >
-        <RelatedPosts posts={allMdx.edges} />
+      <section>
+        <RelatedPosts posts={relatedPosts} />
       </section>
     </Layout>
   )

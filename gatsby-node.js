@@ -28,7 +28,6 @@ exports.onCreateNode = async ({
 }) => {
   if (node.internal.type === `MarkdownRemark` || node.internal.type === `Mdx`) {
     const slug = createFilePath({ node, getNode, basePath: `content` })
-    console.log(slug)
     const { createNodeField, createNode } = actions
     const section = slug.split("/", 2)[1]
     let tags = []
@@ -77,7 +76,6 @@ exports.createPages = async ({ graphql, actions }) => {
   const result = await graphql(`
     query {
       allMarkdownRemark(sort: { fields: frontmatter___date, order: DESC }) {
-        totalCount
         edges {
           node {
             fields {
@@ -88,7 +86,6 @@ exports.createPages = async ({ graphql, actions }) => {
         }
       }
       allMdx(sort: { fields: frontmatter___date, order: DESC }) {
-        totalCount
         edges {
           node {
             fields {
@@ -119,7 +116,6 @@ exports.createPages = async ({ graphql, actions }) => {
       },
     })
   })
-
   result.data.allMdx.edges.forEach(({ node }) => {
     createPage({
       path: node.fields.slug,

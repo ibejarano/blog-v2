@@ -5,7 +5,7 @@ import { graphql } from "gatsby"
 import PostCard from "../components/post-card.js"
 export default ({ data }) => (
   <Layout
-    title={data.allMarkdownRemark.edges[0].node.fields.section}
+    title={data.allMdx.edges[0].node.fields.section}
     description={`posts about ${data.allMarkdownRemark.edges[0].node.fields.section}`}
   >
     <section className="content-body">
@@ -15,9 +15,9 @@ export default ({ data }) => (
           border-bottom: 1px solid;
         `}
       >
-        {data.allMarkdownRemark.edges[0].node.fields.section}
+        {data.allMdx.edges[0].node.fields.section}
       </h1>
-      <h4>{data.allMarkdownRemark.totalCount} Posts</h4>
+      <h4>{data.allMdx.totalCount} Posts</h4>
       {data.allMarkdownRemark.edges.map(({ node }, ind) => (
         <PostCard key={ind} post={node} />
       ))}
@@ -27,7 +27,7 @@ export default ({ data }) => (
 
 export const query = graphql`
   query($sectionName: String!) {
-    allMarkdownRemark(
+    allMdx(
       sort: { fields: frontmatter___date, order: DESC }
       filter: { fields: { section: { eq: $sectionName } } }
     ) {

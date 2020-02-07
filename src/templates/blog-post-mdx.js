@@ -8,7 +8,6 @@ import RelatedPosts from "../components/related-posts"
 export default function({ data }) {
   const post = data.mdx
   const relatedPosts = data.allMdx.edges
-  console.log(post)
   return (
     <Layout title={post.frontmatter.title} description={post.excerpt}>
       <article>
@@ -31,7 +30,6 @@ export const query = graphql`
       body
       excerpt
     }
-
     allMdx(filter: { fields: { tags: { in: $tags } } }) {
       edges {
         node {

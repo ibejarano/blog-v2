@@ -26,7 +26,7 @@ exports.onCreateNode = async ({
   store,
   createNodeId,
 }) => {
-  if (node.internal.type === `MarkdownRemark` || node.internal.type === `Mdx`) {
+  if (node.internal.type === `Mdx`) {
     const slug = createFilePath({ node, getNode, basePath: `content` })
     const { createNodeField, createNode } = actions
     const section = slug.split("/", 2)[1]
@@ -75,16 +75,6 @@ exports.onCreateNode = async ({
 exports.createPages = async ({ graphql, actions }) => {
   const result = await graphql(`
     query {
-      allMarkdownRemark(sort: { fields: frontmatter___date, order: DESC }) {
-        edges {
-          node {
-            fields {
-              slug
-              tags
-            }
-          }
-        }
-      }
       allMdx(sort: { fields: frontmatter___date, order: DESC }) {
         edges {
           node {
@@ -105,21 +95,10 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   `)
   const { createPage } = actions
-  // Creating normal markdown pages
-  result.data.allMarkdownRemark.edges.forEach(({ node }) => {
-    createPage({
-      path: node.fields.slug,
-      component: path.resolve(`./src/templates/blog-post.js`),
-      context: {
-        slug: node.fields.slug,
-        tags: node.fields.tags,
-      },
-    })
-  })
   result.data.allMdx.edges.forEach(({ node }) => {
     createPage({
       path: node.fields.slug,
-      component: path.resolve(`./src/templates/blog-post-mdx.js`),
+      component: path.resolve(`./src/templates/blog-post.js`),
       context: {
         slug: node.fields.slug,
         tags: node.fields.tags,

@@ -27,7 +27,7 @@ const DropdownList = styled.ul`
 const Archives = () => {
   const data = useStaticQuery(graphql`
     query {
-      allMarkdownRemark(sort: { fields: frontmatter___date, order: ASC }) {
+      allMdx(sort: { fields: frontmatter___date, order: ASC }) {
         group(field: fields___yearAndMonth) {
           fieldValue
           edges {
@@ -52,7 +52,7 @@ const Archives = () => {
     i == currentDate ? setCurrentDate(-1) : setCurrentDate(i)
   }
 
-  const postsByYearAndMonth = data.allMarkdownRemark.group.map((field, idx) => {
+  const postsByYearAndMonth = data.allMdx.group.map((field, idx) => {
     const [year, month] = getYearAndMonth(field.fieldValue)
     return (
       <Dropdown key={idx} className="dropdown-wrapper">

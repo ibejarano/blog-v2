@@ -14,14 +14,6 @@ module.exports = {
   },
   plugins: [
     `gatsby-plugin-mdx`,
-    {
-      resolve: `gatsby-plugin-tinacms`,
-      options: {
-        plugins: [`gatsby-tinacms-git`, `gatsby-tinacms-remark`],
-        position: `fixed`,
-      },
-    },
-
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-plugin-manifest`,

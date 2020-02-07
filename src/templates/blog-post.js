@@ -1,30 +1,8 @@
 import React from "react"
-import { remarkForm, DeleteAction } from "gatsby-tinacms-remark"
 import Layout from "../components/layout"
 import { graphql } from "gatsby"
 import { css } from "@emotion/core"
 import RelatedPosts from "../components/related-posts"
-
-const deleteButton = {
-  label: `Delete`,
-  actions: [DeleteAction],
-}
-const BlogPostForm = {
-  fields: [
-    {
-      label: "Title",
-      name: "frontmatter.title",
-      description: "Enter the title of the post here",
-      component: "text",
-    },
-    {
-      label: "Description",
-      name: "frontmatter.description",
-      description: "Enter the post description",
-      component: "textarea",
-    },
-  ],
-}
 
 const BlogPostTemplate = ({ data }) => {
   const post = data.markdownRemark
@@ -33,7 +11,6 @@ const BlogPostTemplate = ({ data }) => {
     <Layout title={post.frontmatter.title} description={post.excerpt}>
       <article
         css={css`
-          background: white;
           padding: 1rem;
         `}
       >
@@ -42,7 +19,6 @@ const BlogPostTemplate = ({ data }) => {
       </article>
       <section
         css={css`
-          background: white;
           padding: 0 1rem;
           margin-top: 2rem;
         `}
@@ -53,7 +29,7 @@ const BlogPostTemplate = ({ data }) => {
   )
 }
 
-export default remarkForm(BlogPostTemplate, BlogPostForm, deleteButton)
+export default BlogPostTemplate
 
 export const query = graphql`
   query($slug: String!, $tags: [String!]) {
@@ -63,8 +39,6 @@ export const query = graphql`
         title
       }
       excerpt
-      fileRelativePath
-      ...TinaRemark
     }
 
     allMarkdownRemark(filter: { fields: { tags: { in: $tags } } }) {

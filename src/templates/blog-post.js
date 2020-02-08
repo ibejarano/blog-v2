@@ -33,15 +33,15 @@ export default BlogPostTemplate
 
 export const query = graphql`
   query($slug: String!, $tags: [String!]) {
-    markdownRemark(fields: { slug: { eq: $slug } }) {
-      html
+    mdx(fields: { slug: { eq: $slug } }) {
+      body
       frontmatter {
         title
       }
       excerpt
     }
 
-    allMarkdownRemark(filter: { fields: { tags: { in: $tags } } }) {
+    allMdx(filter: { fields: { tags: { in: $tags } } }) {
       edges {
         node {
           frontmatter {

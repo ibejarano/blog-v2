@@ -6,7 +6,7 @@ import PostCard from "../components/post-card.js"
 export default ({ data }) => (
   <Layout
     title={data.allMdx.edges[0].node.fields.section}
-    description={`posts about ${data.allMarkdownRemark.edges[0].node.fields.section}`}
+    description={`posts about ${data.allMdx.edges[0].node.fields.section}`}
   >
     <section className="content-body">
       <h1
@@ -18,8 +18,8 @@ export default ({ data }) => (
         {data.allMdx.edges[0].node.fields.section}
       </h1>
       <h4>{data.allMdx.totalCount} Posts</h4>
-      {data.allMarkdownRemark.edges.map(({ node }, ind) => (
-        <PostCard key={ind} post={node} />
+      {data.allMdx.edges.map(({ node }, ind) => (
+        <PostCard key={ind} post={node} noSectionName />
       ))}
     </section>
   </Layout>
@@ -42,6 +42,7 @@ export const query = graphql`
           excerpt
           fields {
             slug
+            section
           }
           timeToRead
         }

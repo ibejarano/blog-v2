@@ -4,7 +4,7 @@ import { rhythm } from "../utils/typography"
 import { Link } from "gatsby"
 import Img from "gatsby-image"
 
-export default ({ post }) => {
+export default ({post, noSectionName}) => {
   return (
     <div
       css={css`
@@ -30,7 +30,7 @@ export default ({ post }) => {
           justify-content: space-between;
         `}
       >
-        {post.fields.section && (
+        {(post.fields.section && !noSectionName) && (
           <span
             css={css`
               font-size: 1rem;

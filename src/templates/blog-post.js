@@ -1,21 +1,22 @@
 import React from "react"
 import Layout from "../components/layout"
+import {MDXRenderer} from "gatsby-plugin-mdx"
 import { graphql } from "gatsby"
 import { css } from "@emotion/core"
 import RelatedPosts from "../components/related-posts"
 
 const BlogPostTemplate = ({ data }) => {
-  const post = data.markdownRemark
-  const relatedPosts = data.allMarkdownRemark.edges
+  const post = data.mdx
+  const relatedPosts = data.allMdx.edges.length ? data.allMdx.edges : false;
+  console.log(relatedPosts)
   return (
     <Layout title={post.frontmatter.title} description={post.excerpt}>
       <article
-        css={css`
-          padding: 1rem;
-        `}
       >
         <h1>{post.frontmatter.title}</h1>
-        <div dangerouslySetInnerHTML={{ __html: post.html }} />
+        <MDXRenderer>
+          {post.body}
+        </MDXRenderer >
       </article>
       <section
         css={css`
@@ -23,7 +24,9 @@ const BlogPostTemplate = ({ data }) => {
           margin-top: 2rem;
         `}
       >
+        {relatedPosts &&
         <RelatedPosts posts={relatedPosts} />
+        }
       </section>
     </Layout>
   )

@@ -108,7 +108,6 @@ exports.createPages = async ({ graphql, actions }) => {
 
   result.data.allDirectory.edges.forEach(({ node }) => {
     if (node.name != "imgs") {
-      console.log(node.name)
       createPage({
         path: node.name,
         component: path.resolve(`./src/templates/section-page.js`),

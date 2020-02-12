@@ -5,6 +5,7 @@ import { Link } from "gatsby"
 import Img from "gatsby-image"
 
 export default ({post, noSectionName}) => {
+  console.log(post.featuredImg)
   return (
     <div
       css={css`

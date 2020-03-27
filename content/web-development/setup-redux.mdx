@@ -1,0 +1,112 @@
+---
+title: Inicio de un proyecto Redux
+date: 2020-03-27
+---
+
+A continuacion mostramos una pequenia guia en la iniciara y programara un proyecto Redux. Esta guia tiene como objetivo el mostrar unicamente los procesos y metodos que son exclusivos de Redux, dado que hay muchos tutoriales en donde no se distingue la parte Redux del framework utilizado, generalmente React.
+
+# Requisitos:
+
+Las dependencias que instalaremos sera la siguiente:
+
+```
+node
+npm
+redux
+redux-logger
+```
+
+La unica dependencia necesaria es `redux`, mas adelante utilizaremos un middleware de `redux-logger`.
+
+
+# Inicio del proyecto
+
+Para iniciar el proyecto creamos una carpeta, cambiamos nuestro directorio a esa carpeta recien creada e inicializamos un proyecto con npm:
+
+```
+mkdir redux-tuto
+cd redux-tuto
+npm init -y
+
+```
+
+El flag `-y` del comando de `npm` es para aceptar todos los valores por default del nuevo proyecto inicializado.
+
+
+# Estructura de un proyecto Redux
+Como bien es sabido Redux es un state manager, es decir, se ocupa de los cambios de estado. El estado es manejado en lo que se denomina `store`.
+
+## Action
+
+Las `actions` o acciones en Redux son funciones que devuelven un objeto en donde se especifica el tipo de accion. Es la puerta de entrada de informacion de una aplicacion que pretenda cambiar nuestro estado. La interaccion con nuestro `store` se vuelve mas predecible cuando sabemos a ciencia cierta que acciones esta ejecutando una aplicacion.
+
+como bien hemos dicho la accion no es mas que una funcion que devuelve un objeto. Por ejemplo
+
+```javascript
+function buyCandy(){
+	return {
+		type: 'BUY_CANDY
+	}
+}
+
+module.exports = buyCandy
+
+```
+
+## Reducer
+
+El `reducer` es el componente funcamental en nuestro proyecto Redux, en el se encuentra la logica de como se va a comportar nuestro estado cuando recibe determinada accion. El mismo recibe entonces dos parametros, `state` y `action`. Por ejemplo.
+
+En esta funcion se define el estado inicial del programa, pasandolo como valor por default al parametro `state`:
+
+```javascript
+const initialState = {
+	numOfCandy: 20
+}
+
+function reducer(state, action) {
+	switch(action.type){
+		case 'BUY_CANDY':
+			return {
+				numOfCandy: state.numOfCandy - 1
+				}
+		default: return state;
+			}
+}
+
+module.exports = reducer
+```
+
+## Store
+
+Vamos a crear el `store`. Para ello es necesario utilizar la liberia `redux`, notar que hasta ahora no hemos utilizado dicha libreria. El metodo utilizado sera `createStore` que acepta 2 parametros, el primero es el reducer (funcion creada anteriormente), el segundo parametro (opcional) es el middleware, por el momento no lo utilizaremos.
+
+```javascript
+const redux = require('require');
+const reducer = require('./reducer');
+
+const store = redux.createStore(reducer);
+
+module.exports = store;
+```
+
+## Uniendo los modulos
+
+Ahora vamos a crear el archivo `index.js` en el que importaremos el `store` y emularemos una accion que realizaria un aplicacion conectada a nuestro store.
+
+```javascript
+const store = require('./redux/store');
+const buyCandy = require('./redux/actions');
+
+console.log(store.getState())
+store.dispatch(buyCandy())
+console.log(store.getState())
+```
+
+Corremos el comando
+
+```
+node index.js
+```
+
+Y veremos en el log como cambia el state de `30` a `29` 

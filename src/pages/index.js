@@ -2,7 +2,7 @@ import React from "react"
 import { css } from "@emotion/core"
 import Layout from "../components/layout"
 import { graphql } from "gatsby"
-import PostCard from "../components/post-card"
+import PostCard from "../components/postcard"
 
 export default ({ data }) => (
   <Layout title={`Blog de Ignacio Bejarano`} description={`Pagina Principal`}>

@@ -8,6 +8,7 @@ const StyledCard = styled.div`
   border-bottom: 2px solid #222;
   display: flex;
   margin-bottom: 1rem;
+  min-height: 10rem;
 
   .card-content {
     display: flex;

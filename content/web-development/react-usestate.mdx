@@ -1,0 +1,208 @@
+---
+title: "React Hooks Series - useState"
+date: "2020-05-26"
+keywords: react,javascript
+---
+
+# Introduccion
+
+Con la introduccion de los hooks a partir de la version de React 16.8 han surgido amplios debates acerca de estas nuevas funcionalidades. Lo que se puede extraer del debate es la idea de que no se puede estructurar un componente de la misma manera utilizando hooks que del modo "antiguo". Por lo que en esta serie de posts voy a tratar de explorar el mindset de ambos enfoques.
+
+## Aclaraciones
+
+Previamente los terminos *stateless component* y *functional component* eran sinonimos, si utilizamos el hook *useState* dentro del componente funcional esto ya no es asi.
+
+Los hooks unicamente se pueden aplicar a componentes funcionales, los mismos NO se pueden usar en un componente de clase. Vamos a descansar en este impedimento para diferenciar ambos enfoques, el enfoque hook o funcional y el enfoque del tipo orientado a objetos.
+
+## Lifecycles
+
+En los componentes funcionales no existen los lifecycles, si bien hay combinaciones de hooks dentro de este tipo de componentes que "emulen" el comportamiento lo mas adecuado es no pensarlos de esa manera.
+
+# Definicion useState
+
+El hook _useState_ es una funcion que acepta un parametro que representa el estado inicial y devuelve un array con 2 componentes, el primero es el getter y el segundo el setter
+
+```javascript
+import React from 'react';
+
+function Component(){
+   ...
+   const arr = React.useState(init)
+   const getter = arr[0]
+   const setter = arr[1]
+   ...
+}
+
+```
+
+Reescribimos lo anterior utilizando una sintaxis de ES5+
+
+
+```javascript
+import React, { useState } from 'react';
+
+function Component(){
+   ...
+   const [getter, setter] = React.useState(init)
+   ...
+}
+```
+
+A continuacion vamos a hacer una app muy sencilla para clarificar.
+
+# Ejemplo - Contador
+
+Vamos a proceder a realizar el contador en distintas fases, empezamos por un enfoque practico y luego vamos agregando ciertas caracteristicas propias del este hook para poder palpar sus ventajas.
+
+## Fase 1
+- Invocacion del hook useState
+- Creacion de un boton con un _event handler_ _onClick_ para aumentar la marca del contador.
+
+```javascript
+import React, { useState } from 'react';
+
+export default function App() {
+  const [count, setCount] = useState(0)
+  return (
+    <div className="App">
+      <h1>Contador</h1>
+      <h3>{count}</h3>
+      <button onClick={()=> setCount(count + 1)} >Incrementar 1</button>
+    </div>
+  );
+}
+```
+ La analogia con los componentes del tipo clase es directa, reemplazando el 'setState' por una funcion llamada 'setCount', el nombre seleccionado es arbitrario, por lo general siempre se utilizan de este estilo, `getter` y `setGetter`.
+
+ ## Fase 2
+
+- Creacion de un segundo boton para disminuir el contador.
+
+```javascript
+export default function App() {
+  const [count, setCount] = useState(0)
+  return (
+    <div className="App">
+      <h1>Contador</h1>
+      <h3>{count}</h3>
+      <button onClick={()=> setCount(count + 1)} >Incrementar 1</button>
+      <DecreaseButton setCount={setCount} count={count} />
+    </div>
+  );
+}
+
+function DecreaseButton({ setCount, count }){
+  return (
+      <button onClick={()=> setCount(count - 1)} >Disminuir 1</button>
+    )
+}
+```
+
+El componente recibe dos props, el contador y la funcion seteadora del estado, el componente es en mayor medida identico al boton que se define en el componente principal App. 
+
+## Fase 3
+- Implementacion de una optimizacion
+
+En la funcion `DecreaseButton` se pasan dos props, el _getter_ y _setter_ propiamente dichos, el primero no es necesario gracias a una caracteristica del _setter_ que es la siguiente:
+
+```javascript
+setCounter( (prev) => prev - 1 )
+```
+
+El _setter_ recibe un callback y le pasa al mismo el valor actual del _getter_, por lo tanto no es necesario pasar el _getter_ como prop, nuestra app queda asi:
+
+```javascript
+export default function App() {
+  const [count, setCount] = useState(0)
+  return (
+    <div className="App">
+      <h1>Contador</h1>
+      <h3>{count}</h3>
+      <button onClick={()=> setCount(count + 1)} >Incrementar 1</button>
+      <DecreaseButton setCount={setCount} />
+    </div>
+  );
+}
+
+function DecreaseButton({ setCount }){
+  return (
+      <button onClick={()=> setCount(prevCount => prevCount - 1 )} >Disminuir 1</button>
+    )
+}
+```
+
+# Comportamiento asincrono
+
+Vamos a modificar la App agregando un `setTimeout` para explorar una caracteristica importante.
+
+```javascript
+export default function App() {
+  const [count, setCount] = useState(0)
+
+  const callback = () =>{
+    setTimeout(
+      ()=>setCount(count + 7)
+      , 2000)
+  }
+
+  return (
+    <div className="App">
+      <h1>Contador</h1>
+      <h3>{count}</h3>
+      <button onClick={callback} >Incrementar 7</button>
+      <DecreaseButton setCount={setCount} />
+    </div>
+  );
+}
+
+function DecreaseButton({ setCount }){
+  return (
+      <button onClick={()=> setCount(prev => prev - 1)} >Disminuir 1</button>
+    )
+}
+```
+
+Asi definido nuestro codigo deberia funcionar? si, pero tendra un comportamiento no deseado. Si iniciamos nuestra App con el contador en 0, presionamos el boton incrementar 7 una vez y disminuir 1 lo presionamos dos veces, nuestras matematicas nos diran que deberia decirnos 5, pero no, la app mostrara la siguiente secuencia.
+
+> 0 -> -1 -> -2 -> 7
+
+El resultado final sera 7. Antes de entrar en la solucion de este bug vamos a analizar el porque, dado que entender esto nos resultara fundamental para los siguiente hooks y el mindset en general para estas herramientas.
+
+El bug se da por la misma naturaleza de Javascript, no de React, esto es debido a que cuando llamamos a la funcion que el engine de javascript puso en cola (o Queue) lo hizo de la siguiente manera
+
+```javascript
+setTimeout( ()=> setCounter( 0 + 7 ) , 2000)
+```
+
+Por lo tanto cuando pasaron los 2 segundos se ejecuto la funcion setCounter(7), por eso durante el renderizado terminamos viendo un 7 y no el resultado de la suma. Como se soluciona? lo hemos visto antriormente, en lugar de darle el parametro counter, enviarle el callback, cuando se ejecute nuestro hook setCounter va a colocar el estado actual de counter y sumarle 7.
+
+## Fase final
+- Cambiamos el callback del SetTimeout para utilizar el ultimo estado de nuestro contador
+
+```javascript
+
+export default function App() {
+  const [count, setCount] = useState(0)
+
+  const callback = () =>{
+    setTimeout(
+      ()=>setCount(prev => prev +7)
+      , 2000)
+  }
+
+  return (
+    <div className="App">
+      <h1>Contador</h1>
+      <h3>{count}</h3>
+      <button onClick={callback} >Incrementar 7</button>
+      <DecreaseButton setCount={setCount} />
+    </div>
+  );
+}
+
+function DecreaseButton({ setCount }){
+  return (
+      <button onClick={()=> setCount(prev => prev - 1)} >Disminuir 1</button>
+    )
+}
+```

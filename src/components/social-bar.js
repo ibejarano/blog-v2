@@ -1,6 +1,5 @@
 import React from "react"
 import { graphql, useStaticQuery } from "gatsby"
-import { css } from "@emotion/core"
 import SocialLink from "./social-link"
 
 export default () => {
@@ -21,13 +20,7 @@ export default () => {
   const { socialLinks } = data.site.siteMetadata
 
   return (
-    <div
-      css={css`
-        position: fixed;
-        top: 40vh;
-        left: 95vw;
-      `}
-    >
+    <div>
       {socialLinks.map((social, idx) => (
         <SocialLink {...social} />
       ))}

@@ -1,15 +1,13 @@
 import React from "react"
 import Layout from "../components/layout"
-import {css} from '@emotion/core'
 
 export default () => {
   return (
-    <Layout title='Contacto' description='pagina con mi informacion de contacto'>
-      <div css={css`
-        background: white;
-        border:  4px solid black;
-        padding: 0 1rem;
-        `}>
+    <Layout
+      title="Contacto"
+      description="pagina con mi informacion de contacto"
+    >
+      <div>
         <h1>Contacto</h1>
         <p>
           Para contactarme puedes revisar cualquiera de mis redes sociales o

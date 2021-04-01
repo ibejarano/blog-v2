@@ -1,22 +1,15 @@
 import React from "react"
-import { css } from "@emotion/core"
 import Layout from "../components/layout"
 import { graphql } from "gatsby"
 import PostCard from "../components/postcard"
+
 export default ({ data }) => (
   <Layout
     title={data.allMdx.edges[0].node.fields.section}
     description={`posts about ${data.allMdx.edges[0].node.fields.section}`}
   >
     <section className="content-body">
-      <h1
-        css={css`
-          display: inline-block;
-          border-bottom: 1px solid;
-        `}
-      >
-        {data.allMdx.edges[0].node.fields.section}
-      </h1>
+      <h1>{data.allMdx.edges[0].node.fields.section}</h1>
       <h4>{data.allMdx.totalCount} Posts</h4>
       {data.allMdx.edges.map(({ node }, ind) => (
         <PostCard key={ind} post={node} noSectionName />

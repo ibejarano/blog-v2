@@ -1,18 +1,11 @@
 import React from "react"
 import { graphql } from "gatsby"
 import Layout from "../components/layout"
-import { css } from "@emotion/core"
 import Img from "gatsby-image"
 
 export default ({ data }) => (
   <Layout title={`Sobre mi`} about={`Un poco sobre el author...`}>
-    <section
-      css={css`
-        background: white;
-        padding: 0 1rem;
-        border: 4px solid black;
-      `}
-    >
+    <section>
       <h1>About {data.site.siteMetadata.title}</h1>
       <p>
         Mi nombre es Ignacio Bejarano, actualmente me desempeño como ingeniero

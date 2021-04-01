@@ -1,6 +1,5 @@
 import React from "react"
 import { useFormik } from "formik"
-import Form from "./styles/form"
 
 const validate = values => {
   const errors = {}
@@ -33,7 +32,7 @@ const SignupForm = () => {
     },
   })
   return (
-    <Form onSubmit={formik.handleSubmit}>
+    <form onSubmit={formik.handleSubmit}>
       {formik.touched.email && formik.errors.email ? (
         <div>{formik.errors.email}</div>
       ) : null}
@@ -71,7 +70,7 @@ const SignupForm = () => {
         value={formik.values.lastName}
       />
       <button type="submit">Submit</button>
-    </Form>
+    </form>
   )
 }
 

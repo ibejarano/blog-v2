@@ -1,5 +1,4 @@
 import React from "react"
-import { css } from "@emotion/core"
 import slugify from "react-slugify"
 
 import SocialBar from "./social-bar"
@@ -10,33 +9,12 @@ import SEO from "./seo"
 
 const Layout = ({ children, title, description }) => {
   return (
-    <div
-      css={css`
-        display: grid;
-        grid-template-rows: 100px 50px auto;
-        grid-template-columns: 1fr 1fr 600px 1fr 1fr;
-        grid-gap: 20px;
-        grid-template-areas:
-          ". nav nav nav ."
-          ". . section . ."
-          ". . body archives . ";
-      `}
-    >
+    <div>
       <SEO title={title} description={description} />
       <Nav />
       <Sections />
-      <section
-        css={css`
-          grid-area: body;
-        `}
-      >
-        {children}
-      </section>
-      <section
-        css={css`
-          grid-area: archives;
-        `}
-      >
+      <section>{children}</section>
+      <section>
         <Archives />
       </section>
       <SocialBar />

@@ -13,6 +13,7 @@ module.exports = {
     socialLinks: config.socialLinks,
   },
   plugins: [
+    "@chakra-ui/gatsby-plugin",
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-plugin-manifest`,
@@ -43,7 +44,6 @@ module.exports = {
         ],
       },
     },
-    `gatsby-plugin-emotion`,
     {
       resolve: `gatsby-plugin-typography`,
       options: {

@@ -1,5 +1,6 @@
 import React from "react"
 import { Link, graphql, useStaticQuery } from "gatsby"
+import { Flex, Spacer } from "@chakra-ui/react"
 
 export default ({ children }) => {
   const data = useStaticQuery(
@@ -14,13 +15,13 @@ export default ({ children }) => {
     `
   )
   return (
-    <nav>
+    <Flex as="nav" w="full">
       <Link to={`/`}>
         <h3>{data.site.siteMetadata.title}</h3>
-        <Link to={`/subscribe/`}>Suscribirse</Link>
       </Link>
+      <Spacer />
       <Link to={`/about/`}>About</Link>
       <Link to={`/contact/`}>Contacto</Link>
-    </nav>
+    </Flex>
   )
 }
